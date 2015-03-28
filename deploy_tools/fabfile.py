@@ -10,7 +10,7 @@ env.key_filename = '~/.ssh/jsmoonKeyPair.pem'
 #env.user = 'jsmoon'
 #env.sudo_user = 'jsmoon'
 
-REPO_URL = 'http://githup.com/himoonjs/tgoat.git'
+REPO_URL = 'http://github.com/himoonjs/tgoat.git'
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
