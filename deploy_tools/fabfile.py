@@ -4,7 +4,7 @@ import random
 
 #env.use_ssh_config = True
 env.key_filename = '~/.ssh/jsmoonKeyPair.pem'
-env.user = 'himoonjs'
+#env.user = 'himoonjs'
 #env.hosts = ['www.jsmoon.com']
 
 #env.user = 'jsmoon'
