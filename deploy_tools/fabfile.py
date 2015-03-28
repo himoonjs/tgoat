@@ -2,10 +2,10 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import *
 import random
 
-env.use_ssh_config = True
-env.key_filename = '/Users/himoonjs/tgoat/jsmoonKeyPair.pem'
-env.user = 'jsmoon'
-env.hosts = ['www.jsmoon.com']
+#env.use_ssh_config = True
+env.key_filename = '~/.ssh/jsmoonKeyPair.pem'
+env.user = 'himoonjs'
+#env.hosts = ['www.jsmoon.com']
 
 #env.user = 'jsmoon'
 #env.sudo_user = 'jsmoon'
