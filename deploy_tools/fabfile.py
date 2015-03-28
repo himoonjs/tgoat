@@ -1,6 +1,14 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run
+from fabric.api import *
 import random
+
+env.use_ssh_config = True
+env.key_filename = '/Users/himoonjs/tgoat/jsmoonKeyPair.pem'
+env.user = 'jsmoon'
+env.hosts = ['www.jsmoon.com']
+
+#env.user = 'jsmoon'
+#env.sudo_user = 'jsmoon'
 
 REPO_URL = 'http://githup.com/himoonjs/tgoat.git'
 
@@ -10,6 +18,7 @@ def deploy():
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.host)
+    _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
 
@@ -29,7 +38,7 @@ def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/superlists/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
-        'ALLOWED_HOSTS = .+$',
+        'ALLOWED_HOSTS =.+$',
         'ALLOWED_HOSTS = ["%s"]' % (site_name,)
     )
     secret_key_file = source_folder + '/superlists/secret_key.py'
@@ -37,7 +46,7 @@ def _update_settings(source_folder, site_name):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
         append(secret_key_file, "SECRET_KEY = '%s'" % (key,))
-    append(settings_path, '\nfrom .secret_key import SECRET_KEY')
+    append(settings_path, '\nfrom .secret_key import SECRET_KEY') 
 
 def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
@@ -48,7 +57,11 @@ def _update_virtualenv(source_folder):
     ))
 
 def _update_static_files(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput' % (source_folder,))
+    run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput' % (
+        source_folder,
+    ))
 
 def _update_database(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (source_folder,))
+    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (
+        source_folder,
+    ))
