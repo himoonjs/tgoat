@@ -61,20 +61,3 @@ class ItemValidationTest(FunctionalTest):
         # She is pleased to see that the error message disappears
         error = self.get_error_elements()
         self.assertFalse(error.is_displayed())
-
-    def test_error_messages_are_cleared_on_input_click(self):
-        # Edith starts a new list in a way that causes a validation error:
-        self.browser.get(self.server_url)
-        self.get_item_input_box().send_keys('\n')
-        error = self.get_error_elements()
-        self.assertTrue(error.is_displayed())
-
-        # She clicks in the input box to clear the error
-        self.get_item_input_box().click()
-
-        # She is pleased to see that the error message disappears
-        error = self.get_error_elements()
-        self.assertFalse(error.is_displayed())
-
-
-
