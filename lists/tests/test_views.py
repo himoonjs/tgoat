@@ -88,7 +88,7 @@ class ListViewTest(TestCase):
         response = self.client.get('/lists/%d/' % (list_.id,))
         self.assertIsInstance(response.context['form'], ExistingListItemForm)
         self.assertContains(response, 'name="text"')
-        
+
     def test_for_invalid_input_nothing_saved_to_db(self):
         self.post_invalid_input()
         self.assertEqual(Item.objects.count(), 0)
@@ -154,4 +154,4 @@ class NewListTest(TestCase):
     def test_invalid_list_items_arent_saved(self):
         self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(List.objects.count(), 0)
-        self.assertEqual(Item.objects.count(), 0)    
+        self.assertEqual(Item.objects.count(), 0)
