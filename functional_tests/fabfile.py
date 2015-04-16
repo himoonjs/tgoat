@@ -1,5 +1,7 @@
 from fabric.api import env, run
 
+env.key_filename = '~/.ssh/jsmoonKeyPair.pem'
+
 
 def _get_base_folder(host):
     return '~/sites/' + host

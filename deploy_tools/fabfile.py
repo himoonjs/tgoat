@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, run
+from fabric.api import *
 import random
 
 #env.use_ssh_config = True
