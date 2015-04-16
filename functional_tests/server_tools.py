@@ -9,10 +9,11 @@ def create_session_on_server(host, email):
             'fab',
             'create_session_on_server:email={}'.format(email),
             '--host={}'.format(host),
-            '--hide=everythin,status',
+            '--hide=everything,status',
         ],
         cwd=THIS_FOLDER
     ).decode().strip()
+
 
 def reset_database(host):
     subprocess.check_call(
